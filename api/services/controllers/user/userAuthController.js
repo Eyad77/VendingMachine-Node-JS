@@ -1,7 +1,12 @@
 const User = require("../../models/User");
 const jwt = require("jsonwebtoken");
 
-// const handleApiError = require("../../../utils/ErrorHandler");
+const handleApiError = require("../../../utils/middlewares/ErrorHandler");
+
+/*
+user signIn function  
+get the user and sign a jwt token with the user role in it whether BUYER or SELLER
+*/
 
 exports.signInUser = async (req, res) => {
   try {
@@ -21,5 +26,8 @@ exports.signInUser = async (req, res) => {
     jwt.sign({ user: user }, `hashkey`, async (err, token) => {
       res.status(200).send({ userInfo: user, token: token });
     });
-  } catch (error) {}
+  } catch (error) {
+    handleApiError(res, error, "getAllUsers");
+
+  }
 };

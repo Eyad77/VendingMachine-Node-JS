@@ -1,5 +1,11 @@
 const jwt = require("jsonwebtoken");
 
+/*
+user authentication and authorization 
+get the jwt token and verify it 
+check for the role given in the function as permission 
+*/
+
 const checkPermission = (permission) => {
   return async (req, res, next) => {
     const bearerHeader = req.headers["authorization"];

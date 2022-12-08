@@ -1,15 +1,15 @@
 const Product = require("../../models/Product");
-//const handleApiError = require("../../../utils/ErrorHandler");
+const handleApiError = require("../../../utils/middlewares/ErrorHandler");
 
 exports.createProduct = async (req, res) => {
-  //try {
+  try {
     req.body.sellerId = req.body.user.user._id
     const product = new Product(req.body);
     await product.save();
     res.status(200).send({ message: "Succesfully added product" });
-  //} catch (error) {
-    //handleApiError(res, error, "createProduct");
-  //}
+  } catch (error) {
+    handleApiError(res, error, "createProduct");
+  }
 };
 
 exports.getAllProducts = async (req, res) => {
@@ -19,19 +19,18 @@ exports.getAllProducts = async (req, res) => {
 
     res.status(200).send(products);
   } catch (error) {
-    //handleApiError(res, error, "getAllProducts");
+    handleApiError(res, error, "getAllProducts");
   }
 };
 
 exports.getProductById = async (req, res) => {
   try {
-    console.log(req.params.id)
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(400).send({ message: "Not a product" });
 
     res.status(200).send(product);
   } catch (error) {
-    //handleApiError(res, error, "getProductById");
+    handleApiError(res, error, "getProductById");
   }
 };
 
@@ -43,7 +42,7 @@ exports.UpdateProduct = async (req, res) => {
 
     res.status(200).send(product);
   } catch (error) {
-    //handleApiError(res, error, "UpdateProduct");
+    handleApiError(res, error, "UpdateProduct");
   }
 };
 
@@ -52,6 +51,6 @@ exports.DeleteProductById = async (req, res) => {
     await Product.findByIdAndDelete(req.params.id);
     res.status(200).send({ message: "Product successfully deleted" });
   } catch (error) {
-    //handleApiError(res, error, "DeleteProductById");
+    handleApiError(res, error, "DeleteProductById");
   }
 };

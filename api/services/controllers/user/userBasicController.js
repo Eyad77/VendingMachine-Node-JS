@@ -1,5 +1,5 @@
 const User = require("../../models/User");
-// const handleApiError = require("../../../utils/ErrorHandler");
+const handleApiError = require("../../../utils/middlewares/ErrorHandler");
 
 //Create new User
 exports.createUser = async (req, res) => {
@@ -8,7 +8,7 @@ exports.createUser = async (req, res) => {
     await user.save();
     res.status(200).send({ message: "Succesfully added user" });
   } catch (error) {
-    // handleApiError(res, error, "createUser");
+    handleApiError(res, error, "createUser");
   }
 };
 
@@ -19,7 +19,7 @@ exports.getAllUsers = async (req, res) => {
 
     res.status(200).send(users);
   } catch (error) {
-    // handleApiError(res, error, "getAllUsers");
+    handleApiError(res, error, "getAllUsers");
   }
 };
 
@@ -30,7 +30,7 @@ exports.getUserById = async (req, res) => {
 
     res.status(200).send(user);
   } catch (error) {
-    // handleApiError(res, error, "getUserById");
+    handleApiError(res, error, "getUserById");
   }
 };
 
@@ -42,7 +42,7 @@ exports.UpdateUser = async (req, res) => {
 
     res.status(200).send(user);
   } catch (error) {
-    // handleApiError(res, error, "UpdateUser");
+    handleApiError(res, error, "UpdateUser");
   }
 };
 
@@ -51,6 +51,6 @@ exports.DeleteUserById = async (req, res) => {
     await User.findByIdAndDelete(req.params._id);
     res.status(200).send({ message: "User successfully deleted" });
   } catch (error) {
-    // handleApiError(res, error, "DeleteUserById");
+    handleApiError(res, error, "DeleteUserById");
   }
 };
